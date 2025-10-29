@@ -23,6 +23,11 @@ export const generateWavePath = ({
   width,
   height,
 }: GenerateWavePathParams): string => {
+  // widthが0以下の場合は空文字を返す
+  if (width <= 0) {
+    return "";
+  }
+  
   const points: string[] = [];
   const yCenter = height / 2;
   const step = 1;
