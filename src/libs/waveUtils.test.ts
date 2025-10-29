@@ -1,5 +1,6 @@
+import { describe, it, expect, test } from "vitest";
 import { generateWavePath } from "./waveUtils";
-import { WaveFunction } from "../types";
+import { WaveFunction } from "@/types";
 
 describe("generateWavePath", () => {
   it("sin関数の始点と終点が正しい座標を返すこと", () => {
