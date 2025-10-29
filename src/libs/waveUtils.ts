@@ -1,5 +1,3 @@
-// src/lib/waveUtils.ts
-
 import { WaveFunction } from "@/types";
 
 /**
@@ -25,7 +23,6 @@ export const generateWavePath = ({
   width,
   height,
 }: GenerateWavePathParams): string => {
-  // --- ここに、前回実装した計算ロジックをそのまま移動 ---
   const points: string[] = [];
   const yCenter = height / 2;
   const step = 1;
@@ -35,16 +32,18 @@ export const generateWavePath = ({
     const radian = angle * (Math.PI / 180);
     let yValue = 0;
 
+    // y座標の計算
     if (functionType === WaveFunction.Sine) {
       yValue = Math.sin(radian * frequency);
     } else if (functionType === WaveFunction.Cosine) {
       yValue = Math.cos(radian * frequency);
     }
 
-    // Y座標の計算式は変更なし
+    // y=1の位置は、グラフの上下に20%の余白が入る
     const y = yCenter - yValue * amplitude * (yCenter * 0.8);
 
-    points.push(`${x.toFixed(3)},${y.toFixed(3)}`); // toFixedで数値を丸めておくとデータが安定する
+    // toFixedで数値を丸めておくとデータが安定する
+    points.push(`${x.toFixed(3)},${y.toFixed(3)}`);
   }
 
   if (points.length === 0) {
