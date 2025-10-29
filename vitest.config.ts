@@ -45,13 +45,15 @@ export default defineConfig({
       },
       {
         extends: true,
-        name: "unit-tests",
-        environment: "jsdom",
-        globals: true,
-        // src配下の *.test.ts(x) ファイルを対象に含める
-        include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
-        // Storybookのテストファイルは除外する
-        exclude: ["**/*.stories.test.ts"],
+        test: {
+          name: "unit-tests",
+          environment: "jsdom",
+          globals: true,
+          // src配下の *.test.ts(x) ファイルを対象に含める
+          include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
+          // Storybookのテストファイルは除外する
+          exclude: ["**/*.stories.test.ts"],
+        },
       },
     ],
   },
