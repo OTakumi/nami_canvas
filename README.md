@@ -14,6 +14,41 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Storybook
+
+This project uses Storybook for component development and testing.
+
+### Running Storybook
+
+```bash
+pnpm storybook
+```
+
+Storybook will be available at [http://localhost:6006](http://localhost:6006).
+
+### Building Storybook
+
+```bash
+pnpm build-storybook
+```
+
+## Testing
+
+### Running Tests
+
+```bash
+# Run all tests
+pnpm test
+
+# Run tests for a specific file
+pnpm test src/components/WaveGraph.test.tsx
+
+# Run tests with verbose output
+pnpm test:verbose
+```
+
+Note: Vitest runs in watch mode by default during development.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
