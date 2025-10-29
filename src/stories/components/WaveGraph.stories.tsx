@@ -35,6 +35,10 @@ const meta = {
       control: "boolean",
       description: "グリッド線の表示/非表示",
     },
+    showAxisLabels: {
+      control: "boolean",
+      description: "軸ラベルの表示/非表示",
+    },
     strokeColor: {
       control: "color",
       description: "波形の色",
@@ -58,6 +62,7 @@ export const SineWave: Story = {
     width: 400,
     height: 200,
     showGrid: true,
+    showAxisLabels: true,
     strokeColor: "royalblue",
     strokeWidth: 2,
   },
@@ -128,6 +133,7 @@ export const Playground: Story = {
     width: 600,
     height: 300,
     showGrid: true,
+    showAxisLabels: true,
     strokeColor: "steelblue",
     strokeWidth: 2,
   },
@@ -135,6 +141,28 @@ export const Playground: Story = {
     docs: {
       description: {
         story: "すべてのパラメータを自由に調整できるインタラクティブなプレイグラウンドです。",
+      },
+    },
+  },
+};
+
+// 軸ラベルなし
+export const NoAxisLabels: Story = {
+  args: {
+    functionType: WaveFunction.Sine,
+    amplitude: 1.5,
+    frequency: 2,
+    width: 500,
+    height: 250,
+    showGrid: true,
+    showAxisLabels: false,
+    strokeColor: "darkorchid",
+    strokeWidth: 3,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "軸ラベルを非表示にした例です。",
       },
     },
   },

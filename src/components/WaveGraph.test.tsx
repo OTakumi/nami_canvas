@@ -18,8 +18,9 @@ describe("WaveGraph", () => {
 
       const svg = container.querySelector("svg");
       expect(svg).toBeTruthy();
-      expect(svg?.getAttribute("width")).toBe("400");
-      expect(svg?.getAttribute("height")).toBe("200");
+      // SVGのサイズは軸ラベル用のマージンを含む
+      expect(svg?.getAttribute("width")).toBe("460");
+      expect(svg?.getAttribute("height")).toBe("240");
     });
 
     it("波形のパスがレンダリングされること", () => {
@@ -152,6 +153,94 @@ describe("WaveGraph", () => {
       const path = container.querySelector("path");
       // 空のパスまたは存在しない
       expect(path?.getAttribute("d") || "").toBe("");
+    });
+  });
+
+  describe("軸ラベル", () => {
+    it("軸ラベルが表示されること", () => {
+      const { container } = render(
+        <WaveGraph
+          functionType={WaveFunction.Sine}
+          amplitude={1}
+          frequency={1}
+          width={400}
+          height={200}
+          showAxisLabels={true}
+        />,
+      );
+
+      // X軸のラベル
+      const xLabels = container.querySelectorAll("text.x-label");
+      expect(xLabels.length).toBeGreaterThan(0);
+      
+      // Y軸のラベル
+      const yLabels = container.querySelectorAll("text.y-label");
+      expect(yLabels.length).toBeGreaterThan(0);
+    });
+
+    it("X軸に角度のラベルが表示されること", () => {
+      const { container } = render(
+        <WaveGraph
+          functionType={WaveFunction.Sine}
+          amplitude={1}
+          frequency={1}
+          width={400}
+          height={200}
+          showAxisLabels={true}
+        />,
+      );
+
+      // 0°, 90°, 180°, 270°, 360°のラベルが存在することを確認
+      const labels = Array.from(container.querySelectorAll("text.x-label"));
+      const labelTexts = labels.map(label => label.textContent);
+      
+      expect(labelTexts).toContain("0°");
+      expect(labelTexts).toContain("90°");
+      expect(labelTexts).toContain("180°");
+      expect(labelTexts).toContain("270°");
+      expect(labelTexts).toContain("360°");
+    });
+
+    it("Y軸に振幅値のラベルが表示されること", () => {
+      const { container } = render(
+        <WaveGraph
+          functionType={WaveFunction.Sine}
+          amplitude={2}
+          frequency={1}
+          width={400}
+          height={200}
+          showAxisLabels={true}
+        />,
+      );
+
+      // -2, -1, 0, 1, 2のラベルが存在することを確認
+      const labels = Array.from(container.querySelectorAll("text.y-label"));
+      const labelTexts = labels.map(label => label.textContent);
+      
+      expect(labelTexts).toContain("2");
+      expect(labelTexts).toContain("1");
+      expect(labelTexts).toContain("0");
+      expect(labelTexts).toContain("-1");
+      expect(labelTexts).toContain("-2");
+    });
+
+    it("showAxisLabels=falseの場合、軸ラベルが表示されないこと", () => {
+      const { container } = render(
+        <WaveGraph
+          functionType={WaveFunction.Sine}
+          amplitude={1}
+          frequency={1}
+          width={400}
+          height={200}
+          showAxisLabels={false}
+        />,
+      );
+
+      const xLabels = container.querySelectorAll("text.x-label");
+      expect(xLabels.length).toBe(0);
+      
+      const yLabels = container.querySelectorAll("text.y-label");
+      expect(yLabels.length).toBe(0);
     });
   });
 });
