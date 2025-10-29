@@ -1,37 +1,82 @@
 "use client";
 
 import { useMemo } from "react";
-import { WaveGraphProps } from "@/types"; // 型定義をインポート
+import { WaveGraphProps } from "@/types";
+import { generateWavePath } from "@/libs/waveUtils";
 
-// propsの型としてWaveGraphPropsを指定
-export default function WaveGraph({
+interface ExtendedWaveGraphProps extends WaveGraphProps {
+  showGrid?: boolean;
+  strokeColor?: string;
+  strokeWidth?: number;
+  className?: string;
+}
+
+export function WaveGraph({
   functionType,
   amplitude,
   frequency,
   width,
   height,
-}: WaveGraphProps) {
+  showGrid = true,
+  strokeColor = "royalblue",
+  strokeWidth = 2,
+  className = "",
+}: ExtendedWaveGraphProps) {
   const pathData = useMemo(() => {
-    // === ここに計算ロジックを実装 ===
-    // 1. 0°から360°までの座標ポイントの配列を生成する
-    // 2. 座標ポイントをSVGのパス文字列("M x1,y1 L x2,y2...")に変換する
-
-    const calculatedPath = "..."; // 計算結果のパス文字列
-    return calculatedPath;
-  }, [functionType, amplitude, frequency, width, height]); // 依存配列
+    return generateWavePath({
+      functionType,
+      amplitude,
+      frequency,
+      width,
+      height,
+    });
+  }, [functionType, amplitude, frequency, width, height]);
 
   return (
-    <svg width={width} height={height} style={{ border: "1px solid #ccc" }}>
-      {/* X軸やY軸などの補助線 */}
-      <line x1="0" y1={height / 2} x2={width} y2={height / 2} stroke="#ddd" />
+    <svg 
+      width={width} 
+      height={height} 
+      className={className}
+      style={{ border: "1px solid #ccc" }}
+    >
+      {/* グリッド線 */}
+      {showGrid && (
+        <>
+          {/* 水平中央線 */}
+          <line 
+            x1="0" 
+            y1={height / 2} 
+            x2={width} 
+            y2={height / 2} 
+            stroke="#ddd" 
+            strokeDasharray="4 2"
+          />
+          
+          {/* 垂直ガイド線（90度ごと） */}
+          {[0.25, 0.5, 0.75].map((ratio) => (
+            <line
+              key={ratio}
+              x1={width * ratio}
+              y1="0"
+              x2={width * ratio}
+              y2={height}
+              stroke="#eee"
+              strokeDasharray="4 2"
+            />
+          ))}
+        </>
+      )}
 
-      {/* 計算した波形を描画するパス */}
+      {/* 波形パス */}
       <path
-        d={pathData} // 計算結果をここにセット
-        stroke="royalblue"
-        strokeWidth="2"
+        d={pathData}
+        stroke={strokeColor}
+        strokeWidth={strokeWidth}
         fill="none"
       />
     </svg>
   );
 }
+
+// デフォルトエクスポートも提供（互換性のため）
+export default WaveGraph;
