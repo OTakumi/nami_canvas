@@ -11,7 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { WaveGraphProps } from "@/types";
-import { generateWavePath } from "@/libs/waveUtils";
+import { generateWavePath } from "@/lib/waveUtils";
 
 interface ExtendedWaveGraphProps extends WaveGraphProps {
   showGrid?: boolean;
@@ -46,29 +46,28 @@ export function WaveGraph({
   // Y軸の目盛りを計算
   const yTicks = useMemo(() => {
     const ticks = [];
-    const steps = amplitude <= 1 ? 5 : Math.min(Math.ceil(amplitude * 2) + 1, 9);
-    
+    const steps =
+      amplitude <= 1 ? 5 : Math.min(Math.ceil(amplitude * 2) + 1, 9);
+
     for (let i = 0; i < steps; i++) {
-      const value = amplitude - (i * (2 * amplitude) / (steps - 1));
+      const value = amplitude - (i * (2 * amplitude)) / (steps - 1);
       ticks.push(Math.round(value * 10) / 10);
     }
     return ticks;
   }, [amplitude]);
 
   return (
-    <div className={className} style={{ border: "1px solid #ccc", padding: "10px" }}>
+    <div
+      className={className}
+      style={{ border: "1px solid #ccc", padding: "10px" }}
+    >
       <ResponsiveContainer width={width + 60} height={height + 40}>
         <LineChart
           data={data}
           margin={{ top: 20, right: 30, left: 30, bottom: 20 }}
         >
-          {showGrid && (
-            <CartesianGrid 
-              strokeDasharray="4 2" 
-              stroke="#ddd"
-            />
-          )}
-          
+          {showGrid && <CartesianGrid strokeDasharray="4 2" stroke="#ddd" />}
+
           {showAxisLabels && (
             <>
               <XAxis
@@ -87,12 +86,12 @@ export function WaveGraph({
               />
             </>
           )}
-          
+
           <Tooltip
             formatter={(value: number) => value.toFixed(3)}
             labelFormatter={(label) => `${label}°`}
           />
-          
+
           <Line
             type="monotone"
             dataKey="value"
