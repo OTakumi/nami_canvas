@@ -6,26 +6,22 @@ Sin波やCos波などの波形をリアルタイムで可視化し、インタ�
 
 ## 主な機能
 
-- **波形の可視化**: Sin波またはCos波をグラフ表示
-- **リアルタイム更新**: パラメータ変更時に即座にグラフを更新
-- **パラメータ調整**:
+- 波形の可視化: Sin波またはCos波をグラフ表示
+- リアルタイム更新: パラメータ変更時に即座にグラフを更新
+- パラメータ調整:
   - 波形タイプ: Sin波/Cos波の切り替え
   - 周波数: 0〜10の範囲で0.1刻みで調整
   - 振幅: 0〜5の範囲で0.1刻みで調整
-- **レスポンシブデザイン**: 画面サイズに応じて自動的にレイアウトを調整
+- レスポンシブデザイン: 画面サイズに応じて自動的にレイアウトを調整
+
+<img width="1562" height="737" alt="image" src="https://github.com/user-attachments/assets/66bd7056-6a38-4c7d-bff9-0ec2b29af25a" />
+
 
 ## 技術スタック
 
-- **フレームワーク**: Next.js 16.0.0 (App Router, Turbopack)
-- **UI ライブラリ**: React 19.2.0
-- **言語**: TypeScript
-- **スタイリング**: Tailwind CSS v4
-- **グラフ描画**: Recharts 3.3.0
-- **UIコンポーネント**:
-  - shadcn/ui (コンポーネントライブラリ)
-  - Radix UI (アクセシブルなプリミティブ)
-- **テスト**: Vitest + @testing-library/react
-- **開発ツール**: Storybook 10.0.0
+- フレームワーク: Next.js 16.0.0 (App Router, Turbopack)
+- 言語: TypeScript
+- グラフ描画: Recharts 3.3.0
 
 ## セットアップ
 
