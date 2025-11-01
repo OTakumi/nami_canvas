@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { WaveGraph } from "@/components/WaveGraph";
 import { WaveControlPanel } from "@/components/WaveControlPanel";
 import { WaveFunction } from "@/types";
@@ -29,13 +29,13 @@ export default function WaveVisualizationPage() {
         </div>
 
         <div className="lg:col-span-2">
-          <div className="border rounded-lg p-4 bg-white">
+          <div className="border rounded-lg p-4 bg-white" style={{ minHeight: "500px" }}>
             <WaveGraph
               functionType={functionType}
               frequency={frequency}
               amplitude={amplitude}
-              width={600}
-              height={400}
+              width="100%"
+              height={450}
               showGrid={true}
               showAxisLabels={true}
               strokeColor="royalblue"
@@ -63,4 +63,3 @@ export default function WaveVisualizationPage() {
     </div>
   );
 }
-

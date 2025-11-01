@@ -13,7 +13,9 @@ import {
 import { WaveGraphProps } from "@/types";
 import { generateWavePath } from "@/lib/waveUtils";
 
-interface ExtendedWaveGraphProps extends WaveGraphProps {
+interface ExtendedWaveGraphProps extends Omit<WaveGraphProps, 'width' | 'height'> {
+  width?: number | string;
+  height?: number | string;
   showGrid?: boolean;
   showAxisLabels?: boolean;
   strokeColor?: string;
@@ -25,8 +27,8 @@ export function WaveGraph({
   functionType,
   amplitude,
   frequency,
-  width,
-  height,
+  width = "100%",
+  height = 400,
   showGrid = true,
   showAxisLabels = true,
   strokeColor = "royalblue",
@@ -38,10 +40,10 @@ export function WaveGraph({
       functionType,
       amplitude,
       frequency,
-      width,
-      height,
+      width: 800, // 固定幅でデータポイントを生成
+      height: 400, // 固定高さでデータポイントを生成
     });
-  }, [functionType, amplitude, frequency, width, height]);
+  }, [functionType, amplitude, frequency]);
 
   // Y軸の目盛りを計算
   const yTicks = useMemo(() => {
@@ -61,7 +63,7 @@ export function WaveGraph({
       className={className}
       style={{ border: "1px solid #ccc", padding: "10px" }}
     >
-      <ResponsiveContainer width={width + 60} height={height + 40}>
+      <ResponsiveContainer width={width} height={height}>
         <LineChart
           data={data}
           margin={{ top: 20, right: 30, left: 30, bottom: 20 }}
